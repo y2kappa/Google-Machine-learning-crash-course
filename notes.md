@@ -1,6 +1,6 @@
 #### notes.md
 
-### Linear regression
+### Ch2. Linear regression
 
 In this equation: $y' = b + w_1x_1~$ the terms mean:
 
@@ -26,7 +26,7 @@ MSE = 1/n \sum_{i=1} ^n (y^{hat}_i - y_i)^2
 ```
 * There are others, this is only the most famous.
 
-### How do we reduce loss
+### Ch3. How do we reduce loss
 
 One way - 
 1. Initialise your weights with random values
@@ -42,3 +42,20 @@ How to do in practice:
 3. Repeat until your loss stops decreasing.
 
 > In gradient descent, a batch is the total number of examples you use to calculate the gradient in a single iteration. A large data set with randomly sampled examples probably contains redundant data.  In fact, redundancy becomes more likely as the batch size grows. Some redundancy can be useful to smooth out noisy gradients, but enormous batches tend not to carry much more predictive value than large batches.
+
+### Ch4. First steps with Tensorflow
+
+```python
+
+import tensorflow as tf
+
+# Set up a linear classifier.
+classifier = tf.estimator.LinearClassifier()
+
+# Train the model on some example data.
+classifier.train(input_fn=train_input_fn, steps=2000)
+
+# Use it to predict.
+predictions = classifier.predict(input_fn=predict_input_fn)
+
+```
