@@ -59,3 +59,42 @@ classifier.train(input_fn=train_input_fn, steps=2000)
 predictions = classifier.predict(input_fn=predict_input_fn)
 
 ```
+
+Start tensorflow image in docker (see `https://www.tensorflow.org/install/install_mac`)
+
+Run
+```sh
+docker run -it -p 8888:8888 tensorflow/tensorflow
+```
+
+Run all three exercises from `https://developers.google.com/machine-learning/crash-course/first-steps-with-tensorflow/programming-exercises`
+
+Interesting points:
+- removing outliers massively improves performance
+- fine-tuning learning rate: increase if it keeps going down (that means it's too slow) or decrease if it goes randomly (it oversteps)
+- graphically showing the regression line shows if it improves
+- batch size is not clear yet, what is the relationship - a too big one seems to completely interfere with learning
+- scatter plotting predictions vs targets shows if it's skewed. if it leans to one place in one dimension it means it's not well distributed and that feature is badly fit for prediction
+
+### Ch5. Generalization
+
+Generalization is something we should not be afraid of. Trying to create a curly line that perfectly fits our training data can be hard to maintain in the appearance of new data.
+
+If we are trying to overfit for a specific point, then the resulting model might fail for other new points. One way of looking at things is saying that: most of the captured stuff is well modelled. For the uncaptured stuff - either these features are not perfect descriptors or those are exceptions and we still don't know why - another law.
+
+Generalization theory: ` https://en.wikipedia.org/wiki/Generalizability_theory `
+
+> The less complex an ML model, the more likely that a good empirical result is not just due to the peculiarities of the sample.
+
+No need to worry about that _in theory_ because we can divide data into test and training data. If the model trained with training data performs well against the test data then it means we can generalise quite well and is not overfit.
+
+To do that - we sample training data from the entire population and use just that. 
+
+Critical assumptions for why this works:
+- the data has an underlying distribution
+- we are drawing independently and identically from this distribution (we are not biasing when we draw)
+- the distribution is stationary (does not change within the data itself). **this might be violated due to the data nature**
+- we are always drawing examples from partitions of the same distribution **this might be violated if distribution over time changes**
+
+### Ch6. Training and test sets
+
