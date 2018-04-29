@@ -108,3 +108,47 @@ Critical assumptions for why this works:
 
 ### Ch6. Training and test sets
 
+How:
+1. Randomize data
+2. Split into test:training
+3. The proportion is important: giving up on one improves the other but decreases the quality of the first. I.e. if you have more training, your model is better but you can't test it properly. If you have a large test set, then you can be very confident about how good your model is - but it might not be that good cause it only had little data to train with.
+4. Don't train on test data!!
+
+If we have a lot of data, we do 10-15% test data. If not, then we need to do some cross validation (??).
+
+### Ch7. Validation
+
+> Partitioning a data set into a training set and test set lets you judge whether a given model will generalize well to new data. However, using only two partitions may be insufficient when doing many rounds of hyperparameter tuning.
+
+Potential Workflow:
+1. Train model on Training Set
+2. Evaluate model on Test Set
+3. Tweak model according to results on Test Set
+4. If not happy go back to 1.
+5. Pick model that odes best on Test set 
+
+This has the danger of overfitting to the test set.
+
+Better way - split into training set, validation set and test set. Potential workflow:
+1. Train model on Training Set
+2. Evaluate model on Validation Set
+3. Tweak model according to results on Validation Set
+4. If not happy, go back to 1.
+5. Pick model that does best on Validation set.
+6. Confirm results on Test Set.
+
+> Test sets and validation sets "wear out" with repeated use. That is, the more you use the same data to make decisions about hyperparameter settings or other model improvements, the less confidence you'll have that these results actually generalize to new, unseen data. Note that validation sets typically wear out more slowly than test sets.
+
+> If possible, it's a good idea to collect more data to "refresh" the test set and validation set. Starting anew is a great reset.
+
+Appendix:
+1. Jupyter notebook keyboard shortcuts:
+https://gist.github.com/kidpixo/f4318f8c8143adee5b40
+2. Jupyter notebook good features to use:
+```python
+from IPython.core.interactiveshell import InteractiveShell
+InteractiveShell.ast_node_interactivity = "all"
+
+from IPython.core.display import display, HTML
+display(HTML("<style>.container { width:100% !important; }</style>"))
+```
